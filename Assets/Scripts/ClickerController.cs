@@ -7,10 +7,13 @@ public class ClickerController : MonoBehaviour
 {
     private int _score;
     private int _clickPower;
+    private int _clickerCounter;
     
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private Button clickButton;
     [SerializeField] private Button resetButton;
+    
+    [SerializeField] private BackgroundController backgroundController;
     
     // Сила клика
     [SerializeField] private UpgradeWrapper clickUpgrade;
@@ -33,6 +36,8 @@ public class ClickerController : MonoBehaviour
     private void OnClickIncrementScore()
     {
         _score += _clickPower;
+        _clickerCounter++;
+        backgroundController.UpdateBackground(_clickerCounter);
         UpdateUI();
     }
     
@@ -40,7 +45,9 @@ public class ClickerController : MonoBehaviour
     {
         clickUpgrade.Reset();
         _score  = 0;
+        _clickerCounter = 0;
         _clickPower = clickUpgrade.GetValue();
+        backgroundController.UpdateBackground(_clickerCounter);
         UpdateUI();
     }
 
